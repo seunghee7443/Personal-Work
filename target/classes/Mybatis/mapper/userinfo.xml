@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.furence.modo.mapper.UserinfoMapper">
+	<insert id="insertUserinfo">
+		insert into userinfo
+			(
+			<if test="id != null and !id.equals('')">
+			id, </if>
+			<if test="pwd != null and !pwd.equals('')">
+			pwd, </if>
+			<if test="name != null and !name.equals('')">
+			name, </if>
+			<if test="level != null and !level.equals('')">
+			level, </if>
+			"desc",
+			<if test="reg_date != null and !reg_date.equals('')">
+			reg_date </if>
+			)
+		values
+			(
+			<if test="id != null and !id.equals('')">
+			#{id}, </if>
+			<if test="pwd != null and !pwd.equals('')">
+			#{pwd}, </if>
+			<if test="name != null and !name.equals('')">
+			#{name}, </if>
+			<if test="level != null and !level.equals('')">
+			#{level}, </if>
+			#{desc},
+			<if test="reg_date != null and !reg_date.equals('')">
+			#{reg_date}::timestamp </if>
+			)
+		on conflict (id) do nothing
+	</insert>
+	
+	<select id="getUserinfo" resultType="com.furence.modo.domain.Userinfo">
+		select * from userinfo
+	</select>
+	
+	<select id="findId" resultType="com.furence.modo.domain.Userinfo">
+		select id from userinfo
+	</select>
+	
+	<delete id="clearTable">
+		delete from userinfo
+	</delete>
+</mapper>
